@@ -1,0 +1,18 @@
+app = "chatbot"
+primary_region = "iad"
+
+[env]
+  OPENAI_API_KEY = ""
+
+[[services]]
+  internal_port = 5000
+  processes = ["app"]
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = 443
