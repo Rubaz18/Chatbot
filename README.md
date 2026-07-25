@@ -1,69 +1,156 @@
-Simple Chatbot
+# Simple AI Chatbot
 
-This minimal chatbot runs a Flask server and supports:
-- Telling jokes (type: "tell me a joke")
-- Calculations (e.g. `2+2`, `sqrt(16)`) via a safe local evaluator
-- Problem-solving using OpenAI if `OPENAI_API_KEY` is set; otherwise a local fallback
+## Project Overview
 
-Quick start (Windows PowerShell):
+This is a simple AI chatbot built using **Python** and **Flask**. It provides basic chatbot features such as telling jokes, solving math expressions, and answering questions. If an OpenAI API key is available, the chatbot can generate AI-powered responses. Otherwise, it uses a local fallback system.
+
+This project was created for learning purposes and to understand how chatbots work with Flask and Python.
+
+---
+
+# Features
+
+* Tell jokes (Example: **"tell me a joke"**)
+* Solve math calculations (Example: **2+2**, **sqrt(16)**)
+* AI responses using OpenAI (when an API key is provided)
+* Local fallback responses if no API key is available
+* Simple web interface using Flask
+
+---
+
+# Technologies Used
+
+* Python
+* Flask
+* HTML
+* CSS
+* JavaScript
+* OpenAI API (Optional)
+
+---
+
+# Project Structure
+
+```text
+Chatbot/
+│
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── render.yaml
+├── fly.toml
+├── templates/
+├── static/
+└── README.md
+```
+
+---
+
+# Installation
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-link>
+cd Chatbot
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+### 3. Activate the virtual environment
+
+**Windows PowerShell**
 
 ```powershell
-python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+```
+
+### 4. Install dependencies
+
+```bash
 pip install -r requirements.txt
-# Optionally set your OpenAI key:
-# $env:OPENAI_API_KEY = 'sk-...'
+```
+
+### 5. (Optional) Add your OpenAI API Key
+
+```powershell
+$env:OPENAI_API_KEY="your_api_key_here"
+```
+
+### 6. Run the chatbot
+
+```bash
 python app.py
 ```
 
-Open http://127.0.0.1:5000 in your browser.
+Open your browser and visit:
 
-Notes:
-- The app uses a safe AST-based evaluator for arithmetic and a small set of math functions.
-- If you set `OPENAI_API_KEY`, the app will attempt to use the OpenAI Chat API for general "solve" requests.
-- Improve intents and add more jokes or knowledge sources as next steps.
+```text
+http://127.0.0.1:5000
+```
 
-Deployment (make the app live 24/7)
+---
 
-1) Quick container build (local test):
+# Example Commands
 
-```powershell
+* tell me a joke
+* 5 + 10
+* sqrt(49)
+* What is Artificial Intelligence?
+* Explain Python loops.
+
+---
+
+# How It Works
+
+* The chatbot checks what the user types.
+* If it is a math expression, it solves it using a safe Python evaluator.
+* If the user asks for a joke, it returns a random joke.
+* If an OpenAI API key is available, it uses AI to answer general questions.
+* If no API key is provided, it gives a simple local response.
+
+---
+
+# Deployment
+
+This project can be deployed on cloud platforms such as:
+
+* Render
+* Fly.io
+* Railway
+
+You can also build and run the project using Docker.
+
+```bash
 docker build -t chatbot .
 docker run -p 5000:5000 chatbot
 ```
 
-2) Deploy to a cloud host (recommended)
+---
 
-- Option A — Render: connect this repository to Render, choose "Web Service", select Docker, and point the service to use the image built from the repo. Render will run the container 24/7 and provide a public URL.
+# Future Improvements
 
-- Option B — Fly.io: install `flyctl`, run `fly launch`, and deploy the Dockerfile. Fly provides a stable public URL and automatic restarts.
+* Add more chatbot intents
+* Improve the user interface
+* Store chat history
+* Add voice input and output
+* Support more AI features
+* Add user authentication
 
-- Option C — Railway / Railway.app: connect repo and deploy using Docker or their Node/Python buildpacks.
+---
 
-3) Using GitHub Container Registry
+# Author
 
-The included GitHub Actions workflow `/.github/workflows/build-and-push.yml` builds and pushes an image to GitHub Container Registry (`ghcr.io/<owner>/<repo>:latest`) when you push to `main`/`master`. You can then configure your cloud host to pull that image.
+**Rubaz Khan**
 
-Provider-specific configs included:
+BS Computer Science Student
 
-- `render.yaml` — configuration for Render (Docker-based Web Service). Connect your GitHub repo to Render and it will build and run this service.
-- `fly.toml` — configuration for Fly.io. Use `fly launch` (or `fly deploy`) to create an app and deploy using this file.
+---
 
-Provider deployment steps (concise):
+# License
 
-- Render
-  1. Sign in to Render and connect your GitHub account.
-  2. Create a new "Web Service" and choose this repository.
-  3. Select "Docker" as the environment; Render will build the Dockerfile and run the container.
-  4. Add the secret `OPENAI_API_KEY` in Render's environment settings if you want cloud answers.
-
-- Fly.io
-  1. Install `flyctl`: https://fly.io/docs/hands-on/install-flyctl/
-  2. Run `flyctl launch` in the repo; choose the `fly.toml` app name or accept the generated one.
-  3. Set the secret: `flyctl secrets set OPENAI_API_KEY=<your_key>`
-  4. Deploy: `flyctl deploy`
-
-Notes on access and next steps:
-- I can perform the deploy for you if you connect your GitHub account to the chosen provider (recommended) or provide a deploy key/API token. For security, prefer connecting GitHub rather than sharing raw credentials.
-- Tell me which provider you prefer and whether you'd like me to proceed with a full deploy (you'll be asked to authorize third-party access during the provider flow).
-
+This project is created for educational and learning purposes.
